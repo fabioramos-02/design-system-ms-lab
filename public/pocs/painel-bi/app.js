@@ -1,6 +1,6 @@
 // Painel de Atendimentos — POC de painel de BI feito com o Design System MS (dados fictícios).
-import { moldura, conteiner, linhas, tabelaSimples } from '../../shared/ui.js';
-import { gerarAtendimentos, MESES_BI } from '../../shared/dados.js';
+import { moldura, conteiner, linhas, tabelaSimples } from '../../shared/ui.js?v=20261125c';
+import { gerarAtendimentos, MESES_BI } from '../../shared/dados.js?v=20261125c';
 
 const DADOS = gerarAtendimentos();
 const ORGAOS = [...new Set(DADOS.map((d) => d.orgao))];

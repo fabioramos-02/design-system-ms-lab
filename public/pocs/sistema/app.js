@@ -1,7 +1,7 @@
 // SIGEP — POC de sistema interno feito com o Design System MS (dados fictícios).
 // Rotas por hash: #/inicio, #/processos, #/processos/novo, #/processos/<id>/editar
-import { moldura, status } from '../../shared/ui.js';
-import { gerarProcessos, SITUACOES, ORGAOS, PESSOAS, ASSUNTOS } from '../../shared/dados.js';
+import { moldura, status } from '../../shared/ui.js?v=20261125c';
+import { gerarProcessos, SITUACOES, ORGAOS, PESSOAS, ASSUNTOS } from '../../shared/dados.js?v=20261125c';
 
 const CHAVE = 'sigep-poc-processos';
 const app = document.getElementById('app');
