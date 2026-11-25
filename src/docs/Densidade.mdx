@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as D from './Densidade.stories.js';
+
+<Meta of={D} />
+
+# Densidade: o mesmo componente, três medidas
+
+O portal do cidadão precisa de respiro. O sistema interno precisa de mais informação por tela. A resposta não
+é outro componente: é o **mesmo componente** com outra medida. As cores, a fonte e o foco continuam iguais.
+
+| Densidade | Linha da tabela | Controle (campo, botão) | Para quem |
+|---|---|---|---|
+| Confortável | 48 px | 44 px (`--ds-size-control-md`) | Portal do cidadão |
+| Padrão | 40 px | 36 px (`--ds-size-control-sm`) | Uso geral |
+| Compacta | 32 px | 32 px | Sistemas internos e BI |
+
+As medidas seguem o Carbon (32 / 40 / 48) e a ideia de densidade alta, média e baixa do gov.br DS.
+
+<Canvas of={D.TresDensidades} />
+
+## Como implementar
+
+A densidade é um atributo no contêiner, e todo componente dentro dele herda:
+
+```html
+<main class="lab" data-density="compact">
+  <!-- tabela, toolbar, campos: todos ficam compactos -->
+</main>
+```
+
+No DS oficial, a proposta é um token `--ds-density` (ou o atributo) lido pelos componentes `ds-table`, `ds-input`
+e afins.
+
+## Cuidados
+
+- O alvo de clique não fica menor que 24 × 24 px (WCAG 2.5.8), mesmo na compacta.
+- A fonte não diminui abaixo de 14 px na compacta.
+- O portal do cidadão **não** usa a compacta.

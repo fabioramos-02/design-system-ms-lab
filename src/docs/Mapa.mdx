@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Comece aqui/Mapa do que existe" />
+
+# Mapa: o que existe, o que é variação, o que falta
+
+Antes de criar componente, confira o oficial. Conferido no
+[Storybook do DS MS](https://designsystem.digital.ms.gov.br) em 25/11/2026.
+
+## Sistemas internos
+
+| Necessidade | No DS oficial | Situação | Neste lab |
+|---|---|---|---|
+| Tabela de dados (ordenar, paginar) | `ds-table`, `ds-pagination` | **Existe** | Variação compacta |
+| Status de um registro | `ds-status`, `ds-badge`, `ds-tag` | **Existe** | Usa como está |
+| Menu lateral entre módulos | `ds-menu`, `ds-navbar`, `ds-app-bar`, `ds-topbar` | **Existe** | Usa na tela de exemplo |
+| Painel lateral (consultar sem sair) | `ds-drawer`, `ds-sheet` | **Existe** | Padrão master-detail |
+| Formulário compacto | `ds-input`, `ds-select`… | **Variação** | Densidade compacta |
+| Toolbar da tabela (busca, filtros, ações) | — | **Falta** | Padrão Toolbar |
+| Filtros aplicados visíveis | `ds-filter-group` (parcial) | **Variação** | Padrão Toolbar (chips) |
+| Ações em lote | — | **Falta** | Padrão Ações em lote |
+| Lista e detalhe na mesma tela | `ds-drawer` (peça) | **Falta o padrão** | Padrão Master-detail |
+| Data grid (editar em célula, milhares de linhas) | — | **Falta** | Fora desta entrega |
+
+## Painéis de BI
+
+| Necessidade | No DS oficial | Situação | Neste lab |
+|---|---|---|---|
+| Indicador (KPI) | `ds-kpi`, `ds-stat` | **Existe** | Usa com metadados |
+| Gráfico | `ds-chart` | **Existe** | Envolve no contêiner |
+| Barra de filtros do painel | `ds-filter-group`, `ds-multi-select` | **Variação** | Padrão Barra de filtros |
+| Contêiner de gráfico (título, fonte, atualização, ver como tabela) | — | **Falta** | Padrão Contêiner de gráfico |
+| Paleta de dados (séries e categorias) | Cores de marca e status | **Falta** | Padrão Paleta de dados |
+| Metadados (fonte, método, atualização) | — | **Falta** | Dentro do contêiner |
+| Tabela analítica | `ds-table` | **Variação** | Densidade compacta |
+| Drill-down | — | **Falta** | Fora desta entrega |
+
+## Regra
+
+Componente novo segue o fluxo do DS: confere no Storybook, a X-VIA desenha no Figma, entra no DS oficial e só
+então vai para os sistemas. Este lab adianta o "como" para essa conversa.

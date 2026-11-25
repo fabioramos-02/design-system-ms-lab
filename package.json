@@ -1,0 +1,17 @@
+{
+  "name": "design-system-ms-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Laboratório de evolução do Design System MS para sistemas internos e painéis de BI",
+  "scripts": {
+    "storybook": "storybook dev -p 6007 --host localhost",
+    "build-storybook": "storybook build -o storybook-static"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/html-vite": "^10.4.6",
+    "storybook": "^10.4.6",
+    "vite": "^7.3.0"
+  }
+}

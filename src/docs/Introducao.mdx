@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Comece aqui/Introdução" />
+
+# Design System MS para sistemas internos e painéis de BI
+
+**Laboratório da SETDIG (Superintendência de Governo Digital).** É uma proposta de evolução do
+[Design System MS oficial](https://designsystem.digital.ms.gov.br). Não é um Design System novo: os padrões
+validados aqui são levados à X-VIA para entrar no oficial.
+
+## A dor
+
+O Design System MS nasceu para padronizar a experiência do cidadão no portal de serviços, e cumpre esse
+papel. Mas quem desenvolve sistemas do governo sente que ele foi feito **só para o portal**. Um servidor que usa
+um sistema administrativo 8 horas por dia precisa de outra coisa: mais informação por tela, tabelas que operam,
+ações em lote. Um analista diante de um painel de BI precisa de filtros, indicadores e gráficos com fonte.
+
+## A proposta
+
+**Mesma identidade, mesmos tokens, mesma acessibilidade. Três contextos de uso.**
+
+| Característica | Portal do cidadão | Sistemas internos | Painéis de BI |
+|---|---|---|---|
+| Objetivo | Acessar um serviço | Executar atividades | Analisar e decidir |
+| Frequência de uso | Pontual | Recorrente, o dia todo | Recorrente ou pontual |
+| Densidade | Confortável | Compacta | Compacta ou padrão |
+| Navegação | Simples e guiada | Funcional e rápida | Exploratória |
+| Tabelas | Consulta simples | Operam: ordenar, filtrar, agir em lote | Comparar e explorar |
+| Formulários | Por etapas | Preenchimento produtivo | Filtros e parâmetros |
+| Prioridade | Fácil de entender | Eficiência | Clareza analítica |
+
+## Como ler este laboratório
+
+1. **[Mapa do que existe](?path=/docs/comece-aqui-mapa-do-que-existe--docs)**: muita coisa já está no DS oficial. O lab
+   só propõe o que falta.
+2. **[Densidade](?path=/docs/comece-aqui-densidade--docs)**: o mesmo componente em três medidas. Troque a densidade
+   na barra de cima, no botão **Densidade**, em qualquer exemplo.
+3. **Padrões**: cada um responde às 5 perguntas (o que é, quando usar, quando não usar, como implementar e
+   acessibilidade).
+4. **Telas**: os padrões montados numa tela real de sistema interno e num painel de BI.
+
+Os dados dos exemplos são fictícios.

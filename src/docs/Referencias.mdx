@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Comece aqui/Referências" />
+
+# Referências: o que adotamos de cada uma
+
+Pesquisa feita em 25/11/2026 nas páginas oficiais. Cada linha diz **o que adotamos** e onde está no lab.
+
+## IBM Carbon (sistemas corporativos e dados)
+
+| Tema | O que o Carbon diz | O que adotamos |
+|---|---|---|
+| [Altura da linha](https://carbondesignsystem.com/components/data-table/usage/) | 24, 32, 40 (padrão), 48 e 64 px; a toolbar e a paginação seguem a linha | Densidades 32 / 40 / 48 px |
+| [Toolbar](https://carbondesignsystem.com/components/data-table/usage/) | Até 5 ações; o resto vai para um menu | Limite de ações na toolbar |
+| [Ações em lote](https://carbondesignsystem.com/components/data-table/usage/) | A barra aparece com 1 item marcado, desliga as ações de linha e sai com "Cancelar" | Padrão Ações em lote |
+| [Acessibilidade da tabela](https://carbondesignsystem.com/components/data-table/accessibility/) | Ordenar com Tab + Enter/Espaço; `aria-sort`; nome acessível | Tabela dos exemplos |
+| [Anatomia do gráfico](https://carbondesignsystem.com/data-visualization/chart-anatomy/) | Título que diz o achado; eixo de barras começa em zero; legenda curta | Contêiner de gráfico |
+| [Paletas](https://carbondesignsystem.com/data-visualization/color-palettes/) | Categórica em ordem fixa; paleta de alerta separada da categórica | Paleta de dados |
+| [Dashboards](https://carbondesignsystem.com/data-visualization/dashboards/) | O mais importante no topo; mesma cor para o mesmo dado em todo o painel | Tela Painel de BI |
+| [Tipografia](https://carbondesignsystem.com/elements/typography/overview/) | *Productive* (produto) × *expressive* (editorial) | Ideia da densidade por contexto |
+
+O Carbon **não** tem elemento de fonte e data de atualização. O lab cria o seu.
+
+## PatternFly (sistemas administrativos)
+
+| Tema | O que o PatternFly diz | O que adotamos |
+|---|---|---|
+| [Toolbar](https://www.patternfly.org/components/toolbar/design-guidelines) | Ordem fixa: seleção → filtros → ícones → até 2 ações → paginação | Padrão Toolbar |
+| [Filtros](https://www.patternfly.org/patterns/filters/design-guidelines) | Filtro aplicado vira chip; "Limpar filtros" no fim; E entre categorias, OU dentro delas | Chips de filtro |
+| [Seleção em massa](https://www.patternfly.org/patterns/bulk-selection) | Checkbox de 3 estados e "N selecionados" | Padrão Ações em lote |
+| [Tabela](https://www.patternfly.org/components/table/design-guidelines) | Compacta para muitos dados simples; ação de linha na última coluna | Densidade compacta |
+| [Primary-detail](https://www.patternfly.org/patterns/primary-detail/design-guidelines) | Lista e detalhe na mesma página; item aberto fica "selecionado"; no celular, um painel por vez | Padrão Master-detail |
+| [Empty state](https://www.patternfly.org/components/empty-state/design-guidelines) | Sem resultado no filtro: diga o próximo passo, sem culpar quem usa | Tabela sem resultado |
+| [Dashboard](https://www.patternfly.org/patterns/dashboard/design-guidelines) | Cards por tipo (status, tendência, uso); o mais importante no topo | Tela Painel de BI |
+| [Cores de gráfico](https://www.patternfly.org/components/charts/colors-for-charts/design-guidelines) | Até 7 variáveis; evitar vermelho com verde | Paleta de dados |
+
+## Governo e acessibilidade
+
+| Fonte | O que diz | O que adotamos |
+|---|---|---|
+| [gov.br DS — Tabela](https://www.gov.br/ds/components/table) e [Web Component Serpro](https://webcomponent-ds.estaleiro.serpro.gov.br/docs/next/components/table/) | Densidade alta, média e baixa (8 / 16 / 24 px); ações contextuais (selecionados) × globais | Densidade como token herdado |
+| [MOJ Design System](https://design-patterns.service.justice.gov.uk/) | Feito para equipes internas: [lista de casos](https://design-patterns.service.justice.gov.uk/pages/case-list/), [multi select](https://design-patterns.service.justice.gov.uk/components/multi-select/), [filtrar lista](https://design-patterns.service.justice.gov.uk/patterns/filter-a-list/) | Link claro na 1ª coluna (nunca "Ver"); status no fim; rótulo oculto em cada checkbox |
+| [USWDS — Tabela](https://designsystem.digital.gov/components/table/) | Compacta, rolável (com `tabindex="0"`), cabeçalho fixo; ordenação anunciada por `aria-live` | Tabela dos exemplos |
+| [USWDS — Visualização de dados](https://designsystem.digital.gov/components/data-visualizations/) | Mensagem em texto; tabela de dados junto do gráfico; não depender de hover | "Ver como tabela" |
+| [Analysis Function (UK)](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/) | Título com a mensagem; subtítulo com dado, recorte e período; fonte com link; baixar os dados | Metadados do gráfico |
+| [W3C — Tabelas](https://www.w3.org/WAI/tutorials/tables/) | `caption`, `th` com `scope` | Todas as tabelas |
+| [W3C — Imagens complexas](https://www.w3.org/WAI/tutorials/images/complex/) | Gráfico precisa de descrição longa visível | Resumo + tabela no gráfico |
+| [WCAG 1.4.1 — Uso de cor](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) | Cor nunca é o único meio | Status com texto; séries com rótulo |
