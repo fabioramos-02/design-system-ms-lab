@@ -11,7 +11,7 @@ body { margin: 0; }
 .vazio { text-align: center; padding: 40px 16px; color: var(--ds-color-text-muted); }
 .vazio b { display: block; color: var(--ds-color-text-default); font-size: var(--ds-font-size-16); margin-bottom: 4px; }
 .form { display: grid; gap: 14px; max-width: 720px; }
-.form .linha { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form .linha { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
 .form label.lab-field { font-size: var(--ds-font-size-14); color: var(--ds-color-text-default); }
 .form .ajuda { font-weight: 400; color: var(--ds-color-text-muted); font-size: var(--ds-font-size-12); }
 .form .erro { font-weight: 600; color: var(--ds-color-status-error-fg, #a5383d); font-size: var(--ds-font-size-12); }

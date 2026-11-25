@@ -199,7 +199,7 @@ function formulario(id) {
         </div>
         <div class="linha">
           <label class="lab-field">Interessado *<span class="ajuda">Nome completo de quem pediu.</span><input class="lab-input" name="interessado" id="c-interessado" maxlength="80" value="${esc(v.interessado)}"><span class="erro" hidden></span></label>
-          <label class="lab-field">Responsável<select class="lab-select" name="responsavel" id="c-responsavel">${opt(PESSOAS, v.responsavel)}</select></label>
+          <label class="lab-field">Responsável<span class="ajuda">Quem vai cuidar do pedido.</span><select class="lab-select" name="responsavel" id="c-responsavel">${opt(PESSOAS, v.responsavel)}</select></label>
         </div>
         <label class="lab-field">Descrição *<span class="ajuda">O que foi pedido, em poucas linhas. Até 500 caracteres.</span>
           <textarea class="lab-input" name="descricao" id="c-descricao" rows="4" maxlength="500" style="height:auto;padding:8px 12px">${esc(v.descricao)}</textarea><span class="erro" hidden></span></label>
