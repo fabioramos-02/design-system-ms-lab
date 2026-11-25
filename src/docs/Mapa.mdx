@@ -2,40 +2,46 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Comece aqui/Mapa do que existe" />
 
-# Mapa: o que existe, o que é variação, o que falta
+# Não falta componente. Falta padrão.
 
-Antes de criar componente, confira o oficial. Conferido no
+Antes de criar componente, confira o oficial. Mapa feito no
 [Storybook do DS MS](https://designsystem.digital.ms.gov.br) em 25/11/2026.
+
+<div className="dx-placar">
+  <div className="existe"><b>6</b><span>necessidades que o DS oficial <strong>já atende</strong></span></div>
+  <div className="variacao"><b>4</b><span>precisam só de <strong>variação</strong> (densidade, chips)</span></div>
+  <div className="falta"><b>6</b><span>padrões que <strong>faltam</strong> e o lab propõe</span></div>
+</div>
 
 ## Sistemas internos
 
 | Necessidade | No DS oficial | Situação | Neste lab |
 |---|---|---|---|
-| Tabela de dados (ordenar, paginar) | `ds-table`, `ds-pagination` | **Existe** | Variação compacta |
-| Status de um registro | `ds-status`, `ds-badge`, `ds-tag` | **Existe** | Usa como está |
-| Menu lateral entre módulos | `ds-menu`, `ds-navbar`, `ds-app-bar`, `ds-topbar` | **Existe** | Usa na tela de exemplo |
-| Painel lateral (consultar sem sair) | `ds-drawer`, `ds-sheet` | **Existe** | Padrão master-detail |
-| Formulário compacto | `ds-input`, `ds-select`… | **Variação** | Densidade compacta |
-| Toolbar da tabela (busca, filtros, ações) | — | **Falta** | Padrão Toolbar |
-| Filtros aplicados visíveis | `ds-filter-group` (parcial) | **Variação** | Padrão Toolbar (chips) |
-| Ações em lote | — | **Falta** | Padrão Ações em lote |
-| Lista e detalhe na mesma tela | `ds-drawer` (peça) | **Falta o padrão** | Padrão Master-detail |
-| Data grid (editar em célula, milhares de linhas) | — | **Falta** | Fora desta entrega |
+| Tabela de dados (ordenar, paginar) | `ds-table` `ds-pagination` | <span className="st existe">Existe</span> | Ganha a densidade compacta |
+| Status de um registro | `ds-status` `ds-badge` `ds-tag` | <span className="st existe">Existe</span> | Usa como está |
+| Menu lateral e barra do sistema | `ds-menu` `ds-app-bar` `ds-topbar` | <span className="st existe">Existe</span> | Moldura das POCs |
+| Painel lateral | `ds-drawer` `ds-sheet` | <span className="st existe">Existe</span> | Base do master-detail |
+| Formulário compacto | `ds-input` `ds-select` | <span className="st variacao">Variação</span> | Densidade compacta |
+| Filtros aplicados visíveis | `ds-filter-group` (parcial) | <span className="st variacao">Variação</span> | Chips na toolbar |
+| Toolbar da tabela | — | <span className="st falta">Falta</span> | [Toolbar e filtros](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Ações em lote | — | <span className="st falta">Falta</span> | [Ações em lote](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Lista e detalhe na mesma tela | `ds-drawer` (peça) | <span className="st falta">Falta</span> | [Master-detail](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Data grid (editar em célula) | — | <span className="st fora">Depois</span> | Fora desta entrega |
 
 ## Painéis de BI
 
 | Necessidade | No DS oficial | Situação | Neste lab |
 |---|---|---|---|
-| Indicador (KPI) | `ds-kpi`, `ds-stat` | **Existe** | Usa com metadados |
-| Gráfico | `ds-chart` | **Existe** | Envolve no contêiner |
-| Barra de filtros do painel | `ds-filter-group`, `ds-multi-select` | **Variação** | Padrão Barra de filtros |
-| Contêiner de gráfico (título, fonte, atualização, ver como tabela) | — | **Falta** | Padrão Contêiner de gráfico |
-| Paleta de dados (séries e categorias) | Cores de marca e status | **Falta** | Padrão Paleta de dados |
-| Metadados (fonte, método, atualização) | — | **Falta** | Dentro do contêiner |
-| Tabela analítica | `ds-table` | **Variação** | Densidade compacta |
-| Drill-down | — | **Falta** | Fora desta entrega |
+| Indicador (KPI) | `ds-kpi` `ds-stat` | <span className="st existe">Existe</span> | Ganha fonte e variação |
+| Gráfico | `ds-chart` | <span className="st existe">Existe</span> | Vai dentro do contêiner |
+| Barra de filtros do painel | `ds-filter-group` `ds-multi-select` | <span className="st variacao">Variação</span> | [Barra de filtros](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Tabela analítica | `ds-table` | <span className="st variacao">Variação</span> | Densidade compacta |
+| Contêiner de gráfico com fonte e atualização | — | <span className="st falta">Falta</span> | [Contêiner de gráfico](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Paleta de dados | Cores de marca e status | <span className="st falta">Falta</span> | [Paleta de dados](?path=/docs/padrões-sistemas-internos-e-bi--docs) |
+| Metadados (fonte, método, atualização) | — | <span className="st falta">Falta</span> | Dentro do contêiner |
+| Drill-down | — | <span className="st fora">Depois</span> | Simples, na POC do painel |
 
-## Regra
+## A regra
 
-Componente novo segue o fluxo do DS: confere no Storybook, a X-VIA desenha no Figma, entra no DS oficial e só
-então vai para os sistemas. Este lab adianta o "como" para essa conversa.
+Componente novo segue o fluxo do DS: **confere no Storybook → a X-VIA desenha no Figma → entra no DS oficial → só
+então vai para os sistemas**. Este lab adianta o "como" para essa conversa.

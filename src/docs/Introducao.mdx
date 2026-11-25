@@ -2,43 +2,57 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Comece aqui/Introdução" />
 
-# Design System MS para sistemas internos e painéis de BI
+# Um Design System, três contextos
 
-**Laboratório da SETDIG (Superintendência de Governo Digital).** É uma proposta de evolução do
-[Design System MS oficial](https://designsystem.digital.ms.gov.br). Não é um Design System novo: os padrões
-validados aqui são levados à X-VIA para entrar no oficial.
+<div className="dx-hero">
+  <div>
+    <span className="selo">ms.gov.br</span>
+    <p className="big">O Design System MS serve ao cidadão no portal. Este laboratório mostra como ele também serve ao servidor no sistema interno e ao gestor no painel de BI.</p>
+    <div className="regra">Não é um Design System novo. É uma proposta da SETDIG para a X-VIA levar ao <a href="https://designsystem.digital.ms.gov.br" target="_blank">DS oficial</a>.</div>
+  </div>
+  <div className="dx-camadas" aria-label="O que muda e o que não muda">
+    <div className="meio">Muda <small>densidade e padrões de uso</small></div>
+    <div className="base">Não muda <small>identidade, tokens e acessibilidade</small></div>
+  </div>
+</div>
 
 ## A dor
 
-O Design System MS nasceu para padronizar a experiência do cidadão no portal de serviços, e cumpre esse
-papel. Mas quem desenvolve sistemas do governo sente que ele foi feito **só para o portal**. Um servidor que usa
-um sistema administrativo 8 horas por dia precisa de outra coisa: mais informação por tela, tabelas que operam,
-ações em lote. Um analista diante de um painel de BI precisa de filtros, indicadores e gráficos com fonte.
+Quem desenvolve sistemas do governo sente que o DS foi feito **só para o portal**. Um servidor que passa 8 horas por
+dia num sistema precisa de mais informação por tela, tabelas que operam e ações em lote. Um painel de BI precisa de
+filtros, indicadores e gráficos com fonte.
 
-## A proposta
+## Três contextos
 
-**Mesma identidade, mesmos tokens, mesma acessibilidade. Três contextos de uso.**
-
-| Característica | Portal do cidadão | Sistemas internos | Painéis de BI |
-|---|---|---|---|
-| Objetivo | Acessar um serviço | Executar atividades | Analisar e decidir |
-| Frequência de uso | Pontual | Recorrente, o dia todo | Recorrente ou pontual |
-| Densidade | Confortável | Compacta | Compacta ou padrão |
-| Navegação | Simples e guiada | Funcional e rápida | Exploratória |
-| Tabelas | Consulta simples | Operam: ordenar, filtrar, agir em lote | Comparar e explorar |
-| Formulários | Por etapas | Preenchimento produtivo | Filtros e parâmetros |
-| Prioridade | Fácil de entender | Eficiência | Clareza analítica |
+<div className="dx-cards">
+  <div className="dx-card" style={{'--c': 'var(--ds-color-brand-skyline)'}}>
+    <div className="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+    <h3>Portal do cidadão</h3>
+    <div className="quem">Acessa um serviço, de vez em quando</div>
+    <dl><dt>Densidade</dt><dd>Confortável</dd><dt>Navegação</dt><dd>Simples e guiada</dd><dt>Tabela</dt><dd>Consulta simples</dd><dt>Formulário</dt><dd>Por etapas</dd><dt>Prioridade</dt><dd>Fácil de entender</dd></dl>
+  </div>
+  <div className="dx-card" style={{'--c': 'var(--ds-color-secondary-600, #008a35)'}}>
+    <div className="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg></div>
+    <h3>Sistemas internos</h3>
+    <div className="quem">Executa atividades, o dia todo</div>
+    <dl><dt>Densidade</dt><dd>Compacta</dd><dt>Navegação</dt><dd>Funcional e rápida</dd><dt>Tabela</dt><dd>Ordenar, filtrar, agir em lote</dd><dt>Formulário</dt><dd>Preenchimento produtivo</dd><dt>Prioridade</dt><dd>Eficiência</dd></dl>
+  </div>
+  <div className="dx-card" style={{'--c': 'var(--ds-color-orange-600, #d96b18)'}}>
+    <div className="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+    <h3>Painéis de BI</h3>
+    <div className="quem">Analisa e decide, com frequência</div>
+    <dl><dt>Densidade</dt><dd>Compacta ou padrão</dd><dt>Navegação</dt><dd>Exploratória</dd><dt>Tabela</dt><dd>Comparar e explorar</dd><dt>Formulário</dt><dd>Filtros e parâmetros</dd><dt>Prioridade</dt><dd>Clareza analítica</dd></dl>
+  </div>
+</div>
 
 ## Como ler este laboratório
 
-1. **[Mapa do que existe](?path=/docs/comece-aqui-mapa-do-que-existe--docs)**: muita coisa já está no DS oficial. O lab
-   só propõe o que falta.
-2. **[Densidade](?path=/docs/comece-aqui-densidade--docs)**: o mesmo componente em três medidas. Troque a densidade
-   na barra de cima, no botão **Densidade**, em qualquer exemplo.
-3. **Padrões**: cada um responde às 5 perguntas (o que é, quando usar, quando não usar, como implementar e
-   acessibilidade).
-4. **Telas**: os padrões montados numa tela real de sistema interno e num painel de BI.
+<ol className="dx-passos">
+  <li><b><a href="?path=/docs/comece-aqui-pocs-e-apresentação--docs">POCs</a></b>Um sistema com CRUD e um painel de BI de verdade.</li>
+  <li><b><a href="?path=/docs/comece-aqui-mapa-do-que-existe--docs">Mapa</a></b>O que já existe no DS oficial e o que falta.</li>
+  <li><b><a href="?path=/docs/comece-aqui-densidade--docs">Densidade</a></b>O mesmo componente em três medidas.</li>
+  <li><b>Padrões</b>Cada um nas 5 perguntas: o que é, quando usar e não usar, como fazer, acessibilidade.</li>
+  <li><b>Telas</b>Os padrões juntos numa tela.</li>
+</ol>
 
-5. **[POCs](?path=/docs/comece-aqui-pocs-e-apresentação--docs)**: um sistema interno com CRUD e um painel de BI completos, abertos em nova aba.
-
-Os dados dos exemplos são fictícios.
+Dica: o botão **Densidade**, na barra de cima, troca a medida de qualquer exemplo. Os dados são fictícios.
