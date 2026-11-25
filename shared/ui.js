@@ -193,6 +193,7 @@ export function moldura({ base = '', sistema, orgao = 'SEGOV', usuario = 'Ana Ri
       <a href="https://www.transparencia.ms.gov.br" target="_blank" rel="noopener">Transparência</a>
     </div>
     <header class="lab-appbar">
+      ${menu ? `<button class="lab-icone lab-menu-btn" aria-label="Abrir o menu" aria-expanded="false" onclick="const sh=this.closest('.lab-shell');const ab=sh.classList.toggle('menu-aberto');this.setAttribute('aria-expanded',ab)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>` : ''}
       <a class="marca" href="#/"><img src="${base}shared/brasao-ms.svg" alt=""><span>${sistema}<small>Governo de Mato Grosso do Sul · ${orgao}</small></span></a>
       <div class="busca"><label class="sr-only" for="busca-global">Buscar no sistema</label><input id="busca-global" class="lab-input" type="search" placeholder="Buscar no sistema"></div>
       <div class="icones">
@@ -202,7 +203,8 @@ export function moldura({ base = '', sistema, orgao = 'SEGOV', usuario = 'Ana Ri
       </div>
       <div class="lab-conta"><span class="lab-avatar" aria-hidden="true">${iniciais}</span><span>${usuario}</span></div>
     </header>
-    ${menu ? `<nav class="lab-side" aria-label="Menu do sistema"><div class="titulo">Menu</div>${menu.map(([r, h, atual]) => `<a href="${h}"${atual ? ' aria-current="page"' : ''}>${r}</a>`).join('')}</nav>` : ''}
+    ${menu ? `<div class="lab-veu" onclick="this.closest('.lab-shell').classList.remove('menu-aberto')"></div>
+    <nav class="lab-side" aria-label="Menu do sistema" onclick="if(event.target.closest('a'))this.closest('.lab-shell').classList.remove('menu-aberto')"><div class="titulo">Menu</div>${menu.map(([r, h, atual]) => `<a href="${h}"${atual ? ' aria-current="page"' : ''}>${r}</a>`).join('')}</nav>` : ''}
     <main class="lab-main" id="conteudo">${conteudo}</main>
     <footer class="lab-infosys">IP: 10.5.6.172 &nbsp;|&nbsp; ${sistema} versão ${versao} &nbsp;|&nbsp; Publicado em 25/11/2026 &nbsp;|&nbsp; HOM · dados fictícios</footer>
   </div>`;
