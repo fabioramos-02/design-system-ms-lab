@@ -38,7 +38,7 @@
   .passos li { counter-increment: p; background: #fff; border: 1px solid var(--ds-color-border); border-radius: 12px; padding: 14px; font-size: .5em; position: relative; }
   .passos li::before { content: counter(p); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 1.1em var(--ds-font-family-heading); margin-bottom: 8px; }
   .passos li b { display: block; color: var(--azul-escuro); font-size: 1.15em; margin-bottom: 4px; }
-  .print { border: 1px solid var(--ds-color-border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,48,95,.12); width: 100%; display: block; }
+  .print { max-height: 560px; object-fit: cover; object-position: top; border: 1px solid var(--ds-color-border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,48,95,.12); width: 100%; display: block; }
   .lado { display: grid; grid-template-columns: 1.55fr 1fr; gap: 24px; align-items: start; }
   .lista { font-size: .58em; margin: 0; padding-left: 1.1em; } .lista li { margin-bottom: 8px; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; }
