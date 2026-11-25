@@ -1,5 +1,5 @@
-import { tabelaProcessos } from '../ui.js';
-import { processos } from '../dados.js';
+import { tabelaProcessos } from '../../shared/ui.js';
+import { processos } from '../../shared/dados.js';
 
 export default { title: 'Comece aqui/Densidade', parameters: { layout: 'padded' } };
 

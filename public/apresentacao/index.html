@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Um DS, três contextos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reset.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<link rel="stylesheet" href="../tokens/ds-tokens.css">
+<style>
+  :root { --azul: var(--ds-color-brand-skyline); --azul-escuro: var(--ds-color-brand-skyline-0); --verde: var(--ds-color-secondary-600, #008a35); --ouro: var(--ds-color-tertiary-500, #ffcd07); }
+  html, body { background: #fff; }
+  .reveal { font-family: var(--ds-font-family-sans); color: var(--ds-color-text-default); font-size: 30px; }
+  .reveal .slides { text-align: left; }
+  .reveal h1, .reveal h2 { font-family: var(--ds-font-family-heading); color: var(--azul-escuro); line-height: 1.08; margin: 0 0 .45em; letter-spacing: -.01em; }
+  .reveal h1 { font-size: 2.2em; font-weight: 900; }
+  .reveal h2 { font-size: 1.45em; font-weight: 900; }
+  .reveal p { margin: 0 0 .5em; line-height: 1.4; }
+  .reveal a { color: var(--azul); }
+  .marca { color: var(--azul); box-shadow: inset 0 -.25em 0 var(--ouro); }
+  .faixa { display: flex; align-items: center; gap: 12px; font-size: .48em; color: var(--ds-color-text-muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: .9em; }
+  .faixa::before { content: ''; width: 44px; height: 7px; border-radius: 3px; background: linear-gradient(90deg, var(--azul) 0 50%, var(--ouro) 50% 75%, var(--verde) 75%); }
+  .lead { color: var(--ds-color-text-muted); border-left: 5px solid var(--azul); padding-left: 18px; font-size: .78em; }
+  .lead b { color: var(--ds-color-text-default); }
+  .selo { display: inline-block; background: var(--azul); color: #fff; font: 800 .5em/1 var(--ds-font-family-heading); padding: 8px 12px; border-radius: 3px; }
+  table.t { border-collapse: collapse; font-size: .52em; width: 100%; }
+  table.t th, table.t td { padding: 9px 12px; border-bottom: 1px solid var(--ds-color-border); text-align: left; }
+  table.t thead th { background: var(--ds-color-primary-50); color: var(--azul-escuro); }
+  table.t tbody th { color: var(--ds-color-text-muted); font-weight: 600; }
+  .cols { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--ds-color-border); border-top: 6px solid var(--azul); border-radius: 12px; padding: 16px 18px; font-size: .58em; }
+  .card b { display: block; font: 800 1.25em var(--ds-font-family-heading); color: var(--azul-escuro); margin-bottom: 4px; }
+  .card.verde { border-top-color: var(--verde); } .card.ouro { border-top-color: var(--ouro); } .card.cinza { border-top-color: var(--ds-color-neutral-400, #8a8a8a); }
+  .num { font: 900 1.6em/1 var(--ds-font-family-heading); color: var(--azul); display: block; margin-bottom: 6px; }
+  .passos { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; counter-reset: p; }
+  .passos li { counter-increment: p; background: #fff; border: 1px solid var(--ds-color-border); border-radius: 12px; padding: 14px; font-size: .5em; position: relative; }
+  .passos li::before { content: counter(p); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 1.1em var(--ds-font-family-heading); margin-bottom: 8px; }
+  .passos li b { display: block; color: var(--azul-escuro); font-size: 1.15em; margin-bottom: 4px; }
+  .print { border: 1px solid var(--ds-color-border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,48,95,.12); width: 100%; display: block; }
+  .lado { display: grid; grid-template-columns: 1.55fr 1fr; gap: 24px; align-items: start; }
+  .lista { font-size: .58em; margin: 0; padding-left: 1.1em; } .lista li { margin-bottom: 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font: 700 .46em/1 var(--ds-font-family-sans); padding: 7px 11px; border-radius: 99px; background: var(--ds-color-primary-100); color: var(--azul-escuro); }
+  .tag.falta { background: var(--ds-color-orange-100, #fff3ea); color: var(--ds-color-orange-800, #8a3d00); }
+  /* Densidade desenhada (mesmas medidas do lab) */
+  .dens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; font-size: .5em; }
+  .dens h3 { font: 800 1.2em var(--ds-font-family-heading); color: var(--azul-escuro); margin: 0 0 2px; }
+  .dens small { color: var(--ds-color-text-muted); display: block; margin-bottom: 8px; }
+  .dens .linha { border-bottom: 1px solid var(--ds-color-border); display: flex; align-items: center; justify-content: space-between; padding: 0 10px; }
+  .dens .cab { background: var(--ds-color-primary-50); font-weight: 700; }
+  .dens .ok { color: var(--ds-color-status-success-fg); font-weight: 600; }
+  .botao { display: inline-block; background: var(--azul); color: #fff !important; text-decoration: none; padding: 10px 18px; border-radius: 99px; font-size: .55em; font-weight: 700; }
+  .reveal .progress { color: var(--azul); } .reveal .controls { color: var(--azul); }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <section>
+    <div class="faixa">SETDIG · Superintendência de Governo Digital</div>
+    <h1>Um Design System, <span class="marca">três contextos</span></h1>
+    <p class="lead">Como o Design System MS pode servir ao portal do cidadão, aos sistemas internos e aos painéis de BI, e como chegamos a essa proposta.</p>
+    <p style="margin-top:1.2em"><span class="selo">ms.gov.br</span> <span style="font-size:.5em;color:var(--ds-color-text-muted);margin-left:8px">Laboratório · novembro de 2026 · para UCQI e SGD</span></p>
+  </section>
+
+  <section>
+    <div class="faixa">A dor</div>
+    <h2>"O Design System parece feito só para o portal."</h2>
+    <div class="cols" style="--n:2;margin-top:.6em">
+      <div class="card"><b>Cidadão no portal</b>Entra uma vez, faz o pedido e sai. Precisa de calma, passo a passo e texto simples.</div>
+      <div class="card ouro"><b>Servidor no sistema</b>Passa 8 horas por dia na mesma tela. Precisa de mais informação por tela, tabelas que operam e ações em lote.</div>
+    </div>
+    <p class="lead" style="margin-top:.9em">É a percepção dos desenvolvedores, e <b>concordamos</b>. O risco é cada sistema fazer o seu e o Estado perder a identidade.</p>
+  </section>
+
+  <section>
+    <div class="faixa">Como pensamos</div>
+    <h2>Evoluir o DS, <span class="marca">não criar outro</span></h2>
+    <table class="t">
+      <thead><tr><th></th><th>Portal do cidadão</th><th>Sistemas internos</th><th>Painéis de BI</th></tr></thead>
+      <tbody>
+        <tr><th>Objetivo</th><td>Acessar um serviço</td><td>Executar atividades</td><td>Analisar e decidir</td></tr>
+        <tr><th>Frequência</th><td>Pontual</td><td>O dia todo</td><td>Recorrente</td></tr>
+        <tr><th>Densidade</th><td>Confortável</td><td>Compacta</td><td>Compacta ou padrão</td></tr>
+        <tr><th>Tabelas</th><td>Consulta simples</td><td>Ordenar, filtrar, agir em lote</td><td>Comparar e explorar</td></tr>
+        <tr><th>Prioridade</th><td>Fácil de entender</td><td>Eficiência</td><td>Clareza analítica</td></tr>
+      </tbody>
+    </table>
+    <p class="lead" style="margin-top:.8em"><b>Mesma identidade, mesmos tokens, mesma acessibilidade.</b> Muda a medida e entram os padrões que faltam.</p>
+  </section>
+
+  <section>
+    <div class="faixa">O processo</div>
+    <h2>Do incômodo à prova, em cinco passos</h2>
+    <ol class="passos">
+      <li><b>Escutar</b>A queixa dos devs e o pedido da Duda antes da apresentação à CSIC.</li>
+      <li><b>Pesquisar</b>Agentes de IA leram Carbon (IBM), PatternFly, gov.br DS, USWDS, MOJ (UK) e W3C.</li>
+      <li><b>Mapear</b>Conferimos no Storybook oficial o que já existe e o que falta.</li>
+      <li><b>Prototipar</b>Um laboratório em Storybook com os tokens oficiais e só o que falta.</li>
+      <li><b>Provar</b>Duas POCs: um sistema com CRUD e um painel de BI.</li>
+    </ol>
+    <p class="lead" style="margin-top:.9em">Cada passo deixou um registro: referências com link, mapa, padrões nas 5 perguntas e as POCs.</p>
+  </section>
+
+  <section>
+    <div class="faixa">O que descobrimos</div>
+    <h2>Boa parte <span class="marca">já existe</span> no DS oficial</h2>
+    <p style="font-size:.6em;margin-bottom:.4em"><b>Já existe:</b></p>
+    <div class="tags">
+      <span class="tag">ds-table</span><span class="tag">ds-pagination</span><span class="tag">ds-status</span><span class="tag">ds-drawer</span><span class="tag">ds-menu</span><span class="tag">ds-app-bar</span><span class="tag">ds-topbar</span><span class="tag">ds-kpi</span><span class="tag">ds-chart</span><span class="tag">ds-filter-group</span><span class="tag">ds-multi-select</span><span class="tag">ds-info-system</span>
+    </div>
+    <p style="font-size:.6em;margin:.9em 0 .4em"><b>Falta (padrão de uso e variação):</b></p>
+    <div class="tags">
+      <span class="tag falta">densidade</span><span class="tag falta">toolbar da tabela</span><span class="tag falta">ações em lote</span><span class="tag falta">master-detail</span><span class="tag falta">contêiner de gráfico com fonte</span><span class="tag falta">paleta de dados</span>
+    </div>
+    <p class="lead" style="margin-top:.9em">O problema não é falta de componente. É falta de <b>variação e de padrão</b> para outros contextos.</p>
+  </section>
+
+  <section>
+    <div class="faixa">Densidade</div>
+    <h2>O mesmo componente, três medidas</h2>
+    <div class="dens">
+      <div><h3>Confortável</h3><small>Portal do cidadão · linha 48 px</small>
+        <div class="linha cab" style="height:48px">Órgão <span>Situação</span></div><div class="linha" style="height:48px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:48px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:48px">DETRAN <span class="ok">● Ativo</span></div></div>
+      <div><h3>Padrão</h3><small>Uso geral · linha 40 px</small>
+        <div class="linha cab" style="height:40px">Órgão <span>Situação</span></div><div class="linha" style="height:40px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">DETRAN <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">SES <span class="ok">● Ativo</span></div></div>
+      <div><h3>Compacta</h3><small>Sistemas e BI · linha 32 px</small>
+        <div class="linha cab" style="height:32px">Órgão <span>Situação</span></div><div class="linha" style="height:32px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">DETRAN <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">SES <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">IAGRO <span class="ok">● Ativo</span></div></div>
+    </div>
+    <p class="lead" style="margin-top:.8em">Medidas do Carbon (32/40/48) e a ideia de densidade alta, média e baixa do gov.br DS. No oficial, vira um token: <b>--ds-density</b>.</p>
+  </section>
+
+  <section>
+    <div class="faixa">Os padrões</div>
+    <h2>Seis padrões, cada um nas <span class="marca">5 perguntas</span></h2>
+    <div class="cols" style="--n:3">
+      <div class="card"><b>Toolbar e filtros</b>Busca, filtros, até 2 ações; filtros aplicados viram chips.</div>
+      <div class="card"><b>Ações em lote</b>Marcar vários e agir de uma vez, com "N selecionados".</div>
+      <div class="card"><b>Master-detail</b>Lista e detalhe na mesma tela, sem perder o lugar.</div>
+      <div class="card verde"><b>Barra de filtros</b>Período, órgão, canal: valem para o painel todo.</div>
+      <div class="card verde"><b>Contêiner de gráfico</b>Título com o achado, fonte, atualização e "ver como tabela".</div>
+      <div class="card verde"><b>Paleta de dados</b>Cores de série separadas das cores de situação.</div>
+    </div>
+    <p class="lead" style="margin-top:.8em">O que é? Quando usar? Quando <b>não</b> usar? Como implementar? Que cuidados de acessibilidade?</p>
+  </section>
+
+  <section>
+    <div class="faixa">POC 1 · Sistema interno</div>
+    <div class="lado">
+      <img class="print" src="img/poc-sistema-lote.png" alt="SIGEP, sistema fictício: lista de processos com três itens marcados e a barra de ações em lote">
+      <div>
+        <h2 style="font-size:1.15em">SIGEP: um sistema do governo, com cara de governo</h2>
+        <ul class="lista">
+          <li>Moldura do DS: faixa ms.gov.br, barra do sistema, menu lateral e rodapé técnico.</li>
+          <li>Listagem com busca, filtros, ordenação e paginação.</li>
+          <li>Ações em lote, detalhe ao lado, cadastro com validação, edição e exclusão com "Desfazer".</li>
+        </ul>
+        <a class="botao" href="../pocs/sistema/index.html#/processos" target="_blank">Abrir o SIGEP ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="faixa">POC 2 · Painel de BI</div>
+    <div class="lado">
+      <img class="print" src="img/poc-painel.png" alt="Painel de Atendimentos: filtros, quatro indicadores e dois gráficos com fonte e atualização">
+      <div>
+        <h2 style="font-size:1.15em">Painel de Atendimentos: dado com contexto</h2>
+        <ul class="lista">
+          <li>Filtros que recalculam indicadores, gráficos e tabela.</li>
+          <li>Título que diz o achado; fonte, atualização e método em todo gráfico.</li>
+          <li>Clique na barra filtra o órgão; tabela comparativa ordenável.</li>
+        </ul>
+        <a class="botao" href="../pocs/painel-bi/index.html" target="_blank">Abrir o painel ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="faixa">Próximos passos</div>
+    <h2>Do laboratório para o <span class="marca">Design System oficial</span></h2>
+    <div class="cols" style="--n:4">
+      <div class="card"><span class="num">1</span><b>Validar</b>Com a UCQI (Thereza e Bruno) e a SGD.</div>
+      <div class="card"><span class="num">2</span><b>Levar à X-VIA</b>Densidade como token e os padrões que faltam, pelo fluxo do componente novo.</div>
+      <div class="card"><span class="num">3</span><b>Apresentar</b>À Duda e às equipes da CSIC, junto com a governança.</div>
+      <div class="card"><span class="num">4</span><b>Testar</b>Num sistema real de um órgão.</div>
+    </div>
+    <p class="lead" style="margin-top:.9em">Laboratório: <a href="../index.html">fabioramos-02.github.io/design-system-ms-lab</a> · dados fictícios.</p>
+  </section>
+
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script>Reveal.initialize({ hash: true, slideNumber: 'c/t', width: 1280, height: 720, margin: 0.05, transition: 'fade' });</script>
+</body>
+</html>

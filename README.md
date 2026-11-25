@@ -12,6 +12,8 @@ acessibilidade. O que for validado aqui vai para a X-VIA incorporar ao oficial.
 - **Padrões:** toolbar e filtros, ações em lote, master-detail, barra de filtros, contêiner de gráfico com metadados e
   paleta de dados. Cada um responde às 5 perguntas: o que é, quando usar, quando não usar, como implementar e
   acessibilidade.
+- **POCs** (`public/pocs/`): o sistema SIGEP (menu lateral, listagem, CRUD) e um painel de BI, abertos a partir do Storybook.
+- **Apresentação** (`public/apresentacao/`): reveal.js sobre o lab e o processo.
 - **Telas:** uma fila de processos de sistema interno e um painel de BI, montados com os padrões.
 
 Os dados dos exemplos são fictícios.

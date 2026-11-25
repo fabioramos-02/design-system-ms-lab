@@ -1,8 +1,8 @@
 // Cada padrão vira uma seção em "Padrões". Docs nas 5 perguntas.
 import { cinco } from '../cinco.js';
 import { el, toolbar, tabelaProcessos, ligarOrdenacao, ligarSelecao, barraLote, ligarDetalhe, painelDetalhe,
-  conteiner, linhas, barrasH, tabelaSimples } from '../ui.js';
-import { meses, atendimentosPorMes, porOrgao } from '../dados.js';
+  conteiner, linhas, barrasH, tabelaSimples } from '../../shared/ui.js';
+import { meses, atendimentosPorMes, porOrgao } from '../../shared/dados.js';
 
 export default {
   title: 'Padrões/Sistemas internos e BI',

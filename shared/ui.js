@@ -173,3 +173,37 @@ export const tabelaSimples = (cab, linhas, caption) => `
     <thead><tr>${cab.map((c, i) => `<th scope="col"${i ? ' class="num"' : ''}>${c}</th>`).join('')}</tr></thead>
     <tbody>${linhas.map((l) => `<tr>${l.map((c, i) => (i ? `<td class="num">${typeof c === 'number' ? n(c) : c}</td>` : `<th scope="row">${c}</th>`)).join('')}</tr>`).join('')}</tbody>
   </table>`;
+
+/* ---------- Moldura de sistema (ds-topbar + ds-app-bar + ds-menu + ds-info-system) ---------- */
+const ICONE = {
+  sino: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+  apps: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+  ajuda: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+};
+
+/** base: caminho até a raiz do lab ('' nas stories, '../../' nas POCs). menu: [[rótulo, href, atual]]. */
+export function moldura({ base = '', sistema, orgao = 'SEGOV', usuario = 'Ana Ribeiro', menu = null, conteudo = '', versao = '0.1.0' }) {
+  const iniciais = usuario.split(' ').map((p) => p[0]).slice(0, 2).join('');
+  return `
+  <div class="lab-shell${menu ? '' : ' lab-shell--sem-menu'}">
+    <div class="lab-govbar">
+      <a class="lab-selo" href="https://www.ms.gov.br" target="_blank" rel="noopener">ms.gov.br</a>
+      <span class="spacer"></span>
+      <a href="https://www.ouvidoria.ms.gov.br" target="_blank" rel="noopener">Ouvidoria</a>
+      <a href="https://www.transparencia.ms.gov.br" target="_blank" rel="noopener">Transparência</a>
+    </div>
+    <header class="lab-appbar">
+      <a class="marca" href="#/"><img src="${base}shared/brasao-ms.svg" alt=""><span>${sistema}<small>Governo de Mato Grosso do Sul · ${orgao}</small></span></a>
+      <div class="busca"><label class="sr-only" for="busca-global">Buscar no sistema</label><input id="busca-global" class="lab-input" type="search" placeholder="Buscar no sistema"></div>
+      <div class="icones">
+        <button class="lab-icone" aria-label="Notificações, 3 novas">${ICONE.sino}<span class="bolha" aria-hidden="true">3</span></button>
+        <button class="lab-icone" aria-label="Outros sistemas">${ICONE.apps}</button>
+        <button class="lab-icone" aria-label="Ajuda">${ICONE.ajuda}</button>
+      </div>
+      <div class="lab-conta"><span class="lab-avatar" aria-hidden="true">${iniciais}</span><span>${usuario}</span></div>
+    </header>
+    ${menu ? `<nav class="lab-side" aria-label="Menu do sistema"><div class="titulo">Menu</div>${menu.map(([r, h, atual]) => `<a href="${h}"${atual ? ' aria-current="page"' : ''}>${r}</a>`).join('')}</nav>` : ''}
+    <main class="lab-main" id="conteudo">${conteudo}</main>
+    <footer class="lab-infosys">IP: 10.5.6.172 &nbsp;|&nbsp; ${sistema} versão ${versao} &nbsp;|&nbsp; Publicado em 25/11/2026 &nbsp;|&nbsp; HOM · dados fictícios</footer>
+  </div>`;
+}

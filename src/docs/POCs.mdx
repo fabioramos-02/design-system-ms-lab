@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Comece aqui/POCs e apresentação" />
+
+# POCs: os padrões num produto de verdade
+
+Duas provas de conceito feitas só com os tokens do Design System MS e os padrões deste lab. Os dados são fictícios
+e ficam no seu navegador.
+
+<div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:16,margin:'16px 0'}}>
+  <a href="./pocs/sistema/index.html#/processos" target="_blank" style={{display:'block',border:'1px solid #d5d5d5',borderRadius:12,padding:20,textDecoration:'none',color:'inherit'}}>
+    <strong style={{color:'#004f9f',fontSize:20}}>Sistema interno: SIGEP ↗</strong>
+    <p>Gestão de processos com menu lateral, listagem com filtros, ordenação e paginação, ações em lote, detalhe ao lado, cadastro com validação, edição e exclusão com "Desfazer".</p>
+  </a>
+  <a href="./pocs/painel-bi/index.html" target="_blank" style={{display:'block',border:'1px solid #d5d5d5',borderRadius:12,padding:20,textDecoration:'none',color:'inherit'}}>
+    <strong style={{color:'#004f9f',fontSize:20}}>Painel de BI: Atendimentos ↗</strong>
+    <p>Filtros que recalculam tudo, indicadores com variação, gráficos com fonte e atualização, clique na barra para filtrar o órgão e tabela comparativa ordenável.</p>
+  </a>
+  <a href="./apresentacao/index.html" target="_blank" style={{display:'block',border:'1px solid #d5d5d5',borderRadius:12,padding:20,textDecoration:'none',color:'inherit'}}>
+    <strong style={{color:'#004f9f',fontSize:20}}>Apresentação do lab ↗</strong>
+    <p>Por que o lab existe, como pensamos e o processo, em 10 slides.</p>
+  </a>
+</div>
+
+## A moldura segue o DS oficial
+
+As duas usam a mesma moldura de sistema do Design System MS: `ds-topbar` (faixa ms.gov.br), `ds-app-bar` (nome do
+sistema, busca, notificações, conta), `ds-menu` lateral e `ds-info-system` no rodapé. Nada de cabeçalho inventado:
+o sistema interno é reconhecido como do Governo de MS, igual ao portal.

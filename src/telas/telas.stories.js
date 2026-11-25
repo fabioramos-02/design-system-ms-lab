@@ -1,26 +1,19 @@
 // Telas reais montadas com os padrões. Abrem na densidade compacta.
 import { el, toolbar, tabelaProcessos, ligarOrdenacao, ligarSelecao, barraLote, ligarDetalhe, painelDetalhe,
-  conteiner, linhas, barrasH, tabelaSimples } from '../ui.js';
-import { meses, atendimentosPorMes, porOrgao } from '../dados.js';
+  conteiner, linhas, barrasH, tabelaSimples, moldura } from '../../shared/ui.js';
+import { meses, atendimentosPorMes, porOrgao } from '../../shared/dados.js';
 
 export default { title: 'Telas/Exemplos', parameters: { layout: 'fullscreen', densidadeFixa: 'compact' } };
 
 export const SistemaInterno = {
   name: 'Sistema interno — fila de processos',
   render: () => {
-    const r = el(`
-    <div class="lab-shell">
-      <header class="lab-topbar"><b>Gestão de Processos</b><span style="opacity:.8">Governo de Mato Grosso do Sul</span><span class="spacer"></span><span>Ana Ribeiro · SEGOV</span></header>
-      <nav class="lab-side" aria-label="Módulos">
-        <a href="#" aria-current="page">Fila de processos</a><a href="#">Meus despachos</a><a href="#">Relatórios</a><a href="#">Configurações</a>
-      </nav>
-      <main class="lab-main">
-        <h1>Fila de processos</h1>
-        ${toolbar()}
-        ${barraLote()}
-        <div class="lab-md"><div>${tabelaProcessos({ select: true, caption: 'Processos em aberto na SEGOV' })}</div>${painelDetalhe()}</div>
-      </main>
-    </div>`);
+    const r = el(moldura({
+      sistema: 'Gestão de Processos',
+      menu: [['Fila de processos', '#', true], ['Meus despachos', '#'], ['Relatórios', '#'], ['Configurações', '#']],
+      conteudo: `<h1>Fila de processos</h1>${toolbar()}${barraLote()}
+        <div class="lab-md"><div>${tabelaProcessos({ select: true, caption: 'Processos em aberto na SEGOV' })}</div>${painelDetalhe()}</div>`,
+    }));
     ligarOrdenacao(r); ligarSelecao(r); ligarDetalhe(r); return r;
   },
 };

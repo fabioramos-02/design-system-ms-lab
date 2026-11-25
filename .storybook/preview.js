@@ -1,5 +1,5 @@
 import '../tokens/ds-tokens.css';
-import '../src/lab.css';
+import '../shared/lab.css';
 
 // Densidade na barra do Storybook: troca o contexto de qualquer exemplo.
 export const globalTypes = {
@@ -36,7 +36,7 @@ export const parameters = {
   layout: 'fullscreen',
   options: {
     storySort: {
-      order: ['Comece aqui', ['Introdução', 'Mapa do que existe', 'Densidade', 'Referências'], 'Padrões', 'Telas'],
+      order: ['Comece aqui', ['Introdução', 'POCs e apresentação', 'Mapa do que existe', 'Densidade', 'Referências'], 'Padrões', 'Telas'],
     },
   },
 };
