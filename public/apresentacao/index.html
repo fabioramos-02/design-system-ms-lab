@@ -53,6 +53,38 @@
   .dens .ok { color: var(--ds-color-status-success-fg); font-weight: 600; }
   .botao { display: inline-block; background: var(--azul); color: #fff !important; text-decoration: none; padding: 10px 18px; border-radius: 99px; font-size: .55em; font-weight: 700; }
   .reveal .progress { color: var(--azul); } .reveal .controls { color: var(--azul); }
+
+  /* Processo: trilho com 5 marcos */
+  .reveal ol.trilho { list-style: none; margin: 1.1em 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); position: relative; }
+  .trilho::before { content: ''; position: absolute; top: 62px; left: 10%; right: 10%; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--azul) 0 72%, var(--ouro) 72% 86%, var(--verde) 86%); }
+  .reveal .trilho li { display: block; text-align: center; position: relative; }
+  .trilho .bola { width: 124px; height: 124px; margin: 0 auto 18px; border-radius: 50%; background: #fff; border: 6px solid var(--azul); display: grid; place-items: center; color: var(--azul); position: relative; z-index: 1; box-shadow: 0 10px 24px rgba(0, 48, 95, .14); }
+  .trilho li:last-child .bola { background: var(--azul); color: #fff; }
+  .trilho .bola svg { width: 56px; height: 56px; }
+  .trilho b { display: block; font: 900 .95em var(--ds-font-family-heading); color: var(--azul-escuro); }
+  .trilho small { display: block; font-size: .6em; color: var(--ds-color-text-muted); margin-top: 4px; }
+  .refs { display: flex; justify-content: center; gap: 10px; margin-top: 1.3em; }
+  .refs span { font: 700 .42em/1 var(--ds-font-family-sans); letter-spacing: .04em; text-transform: uppercase; color: var(--azul); border: 2px solid var(--ds-color-primary-200); border-radius: 99px; padding: 8px 14px; }
+  .reveal .present .trilho li { animation: sobe .5s calc(var(--i) * .12s) both cubic-bezier(.2, 0, 0, 1); }
+  @keyframes sobe { from { opacity: 0; transform: translateY(18px); } }
+
+  /* Descobrimos: placar 12 × 6 */
+  .placar { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; margin-top: .5em; }
+  .placar > div { border-radius: 18px; padding: 20px 24px; }
+  .lado-a { background: var(--ds-color-primary-50); border: 2px solid var(--ds-color-primary-200); }
+  .lado-b { background: var(--ds-color-orange-100, #fff3ea); border: 2px solid var(--ds-color-orange-300, #ffcdaa); }
+  .grande { display: block; font: 900 3.2em/1 var(--ds-font-family-heading); color: var(--azul); }
+  .lado-b .grande { color: var(--ds-color-orange-700, #b3541e); }
+  .rot { display: block; font-size: .55em; color: var(--ds-color-text-muted); margin: 4px 0 14px; }
+  .rot b { color: var(--ds-color-text-default); }
+  .pilha { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pilha i { font: 600 .4em/1 var(--ds-font-family-mono); font-style: normal; background: #fff; border-radius: 6px; padding: 7px 9px; color: var(--azul-escuro); border: 1px solid var(--ds-color-primary-200); }
+  .lado-b .pilha i { font-family: var(--ds-font-family-sans); color: var(--ds-color-orange-800, #8a3d00); border-color: var(--ds-color-orange-300, #ffcdaa); }
+  .barra-prop { display: flex; height: 14px; border-radius: 7px; overflow: hidden; margin-top: 22px; }
+  .barra-prop span:first-child { background: var(--azul); } .barra-prop span:last-child { background: var(--ds-color-orange-500, #ff832b); }
+  .reveal .present .barra-prop span { animation: cresce .9s .2s both cubic-bezier(.2, 0, 0, 1); transform-origin: left; }
+  @keyframes cresce { from { transform: scaleX(0); } }
+  @media (prefers-reduced-motion: reduce) { .reveal .present .trilho li, .reveal .present .barra-prop span { animation: none; } }
 </style>
 </head>
 <body>
@@ -91,47 +123,30 @@
     <p class="lead" style="margin-top:.8em"><b>Mesma identidade, mesmos tokens, mesma acessibilidade.</b> Muda a medida e entram os padrões que faltam.</p>
   </section>
 
-  <section>
+<section>
     <div class="faixa">O processo</div>
-    <h2>Do incômodo à prova, em cinco passos</h2>
-    <ol class="passos">
-      <li><b>Escutar</b>A queixa dos devs e o pedido da Duda antes da apresentação à CSIC.</li>
-      <li><b>Pesquisar</b>Agentes de IA leram Carbon (IBM), PatternFly, gov.br DS, USWDS, MOJ (UK) e W3C.</li>
-      <li><b>Mapear</b>Conferimos no Storybook oficial o que já existe e o que falta.</li>
-      <li><b>Prototipar</b>Um laboratório em Storybook com os tokens oficiais e só o que falta.</li>
-      <li><b>Provar</b>Duas POCs: um sistema com CRUD e um painel de BI.</li>
+    <h2>Do incômodo à <span class="marca">prova</span></h2>
+    <ol class="trilho">
+      <li style="--i:0"><span class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></span><b>Escutar</b><small>devs + Duda</small></li>
+      <li style="--i:1"><span class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><b>Pesquisar</b><small>6 referências</small></li>
+      <li style="--i:2"><span class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></span><b>Mapear</b><small>Storybook oficial</small></li>
+      <li style="--i:3"><span class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><b>Prototipar</b><small>lab com os tokens</small></li>
+      <li style="--i:4"><span class="bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><b>Provar</b><small>2 POCs no ar</small></li>
     </ol>
-    <p class="lead" style="margin-top:.9em">Cada passo deixou um registro: referências com link, mapa, padrões nas 5 perguntas e as POCs.</p>
+    <div class="refs"><span>Carbon</span><span>PatternFly</span><span>gov.br DS</span><span>USWDS</span><span>MOJ</span><span>W3C</span></div>
   </section>
 
-  <section>
+<section>
     <div class="faixa">O que descobrimos</div>
-    <h2>Boa parte <span class="marca">já existe</span> no DS oficial</h2>
-    <p style="font-size:.6em;margin-bottom:.4em"><b>Já existe:</b></p>
-    <div class="tags">
-      <span class="tag">ds-table</span><span class="tag">ds-pagination</span><span class="tag">ds-status</span><span class="tag">ds-drawer</span><span class="tag">ds-menu</span><span class="tag">ds-app-bar</span><span class="tag">ds-topbar</span><span class="tag">ds-kpi</span><span class="tag">ds-chart</span><span class="tag">ds-filter-group</span><span class="tag">ds-multi-select</span><span class="tag">ds-info-system</span>
+    <h2>Não falta componente. <span class="marca">Falta padrão.</span></h2>
+    <div class="placar">
+      <div class="lado-a"><span class="grande">12</span><span class="rot">componentes que <b>já existem</b> no DS oficial</span>
+        <div class="pilha"><i>ds-table</i><i>ds-pagination</i><i>ds-status</i><i>ds-drawer</i><i>ds-menu</i><i>ds-app-bar</i><i>ds-topbar</i><i>ds-kpi</i><i>ds-chart</i><i>ds-filter-group</i><i>ds-multi-select</i><i>ds-info-system</i></div></div>
+      <div class="lado-b"><span class="grande">6</span><span class="rot">padrões e variações que <b>faltam</b></span>
+        <div class="pilha"><i>densidade</i><i>toolbar</i><i>ações em lote</i><i>master-detail</i><i>contêiner de gráfico</i><i>paleta de dados</i></div></div>
     </div>
-    <p style="font-size:.6em;margin:.9em 0 .4em"><b>Falta (padrão de uso e variação):</b></p>
-    <div class="tags">
-      <span class="tag falta">densidade</span><span class="tag falta">toolbar da tabela</span><span class="tag falta">ações em lote</span><span class="tag falta">master-detail</span><span class="tag falta">contêiner de gráfico com fonte</span><span class="tag falta">paleta de dados</span>
-    </div>
-    <p class="lead" style="margin-top:.9em">O problema não é falta de componente. É falta de <b>variação e de padrão</b> para outros contextos.</p>
+    <div class="barra-prop" aria-hidden="true"><span style="flex:12"></span><span style="flex:6"></span></div>
   </section>
-
-  <section>
-    <div class="faixa">Densidade</div>
-    <h2>O mesmo componente, três medidas</h2>
-    <div class="dens">
-      <div><h3>Confortável</h3><small>Portal do cidadão · linha 48 px</small>
-        <div class="linha cab" style="height:48px">Órgão <span>Situação</span></div><div class="linha" style="height:48px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:48px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:48px">DETRAN <span class="ok">● Ativo</span></div></div>
-      <div><h3>Padrão</h3><small>Uso geral · linha 40 px</small>
-        <div class="linha cab" style="height:40px">Órgão <span>Situação</span></div><div class="linha" style="height:40px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">DETRAN <span class="ok">● Ativo</span></div><div class="linha" style="height:40px">SES <span class="ok">● Ativo</span></div></div>
-      <div><h3>Compacta</h3><small>Sistemas e BI · linha 32 px</small>
-        <div class="linha cab" style="height:32px">Órgão <span>Situação</span></div><div class="linha" style="height:32px">SED <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">SEFAZ <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">DETRAN <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">SES <span class="ok">● Ativo</span></div><div class="linha" style="height:32px">IAGRO <span class="ok">● Ativo</span></div></div>
-    </div>
-    <p class="lead" style="margin-top:.8em">Medidas do Carbon (32/40/48) e a ideia de densidade alta, média e baixa do gov.br DS. No oficial, vira um token: <b>--ds-density</b>.</p>
-  </section>
-
   <section>
     <div class="faixa">Os padrões</div>
     <h2>Seis padrões, cada um nas <span class="marca">5 perguntas</span></h2>

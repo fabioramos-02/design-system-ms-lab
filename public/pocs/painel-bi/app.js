@@ -9,6 +9,37 @@ const app = document.getElementById('app');
 const n = (v) => v.toLocaleString('pt-BR');
 const pct = (v) => `${(v * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%`;
 
+
+// Rosca: fatias com rótulo direto (valor e %), total no centro. Cor nunca sozinha: cada fatia tem texto.
+function rosca(partes, centro) {
+  const total = partes.reduce((a, [, v]) => a + v, 0); let ang = -Math.PI / 2;
+  const cx = 130, cy = 120, R = 92, r = 58;
+  const arcos = partes.map(([nome, v], i) => {
+    const a0 = ang, a1 = ang + (2 * Math.PI * v) / total; ang = a1;
+    const big = a1 - a0 > Math.PI ? 1 : 0, p = (a, rr) => `${cx + rr * Math.cos(a)},${cy + rr * Math.sin(a)}`;
+    return `<path d="M${p(a0, R)} A${R},${R} 0 ${big} 1 ${p(a1, R)} L${p(a1, r)} A${r},${r} 0 ${big} 0 ${p(a0, r)} Z" fill="var(--lab-data-${i + 1})" stroke="#fff" stroke-width="3"></path>`;
+  }).join('');
+  const leg = partes.map(([nome, v], i) => `<g transform="translate(270 ${70 + i * 52})"><rect width="14" height="14" rx="3" fill="var(--lab-data-${i + 1})"></rect>
+    <text x="22" y="12" style="font-weight:600;fill:var(--ds-color-text-default)">${nome}</text><text x="22" y="32">${n(v)} · ${pct(v / total)}</text></g>`).join('');
+  return `<svg viewBox="0 0 520 240" aria-hidden="true">${arcos}<text x="${cx}" y="${cy - 2}" text-anchor="middle" style="font:800 22px var(--ds-font-family-heading);fill:var(--ds-color-brand-skyline-0)">${centro[0]}</text>
+    <text x="${cx}" y="${cy + 18}" text-anchor="middle">${centro[1]}</text>${leg}</svg>`;
+}
+
+// Colunas com linha de meta.
+function colunas(dados, meta, unidade) {
+  const w = 520, h = 230, x0 = 70, y0 = 190, max = Math.max(meta, ...dados.map((d) => d[1])) * 1.15;
+  const bw = (w - x0 - 20) / dados.length, Y = (v) => y0 - ((y0 - 16) * v) / max;
+  const barras = dados.map(([nome, v], i) => {
+    const x = x0 + i * bw + bw * 0.2, acima = v > meta;
+    return `<rect x="${x}" y="${Y(v)}" width="${bw * 0.6}" height="${y0 - Y(v)}" rx="3" fill="${acima ? 'var(--lab-data-3)' : 'var(--lab-data-1)'}"></rect>
+      <text x="${x + bw * 0.3}" y="${Y(v) - 6}" text-anchor="middle" style="font-weight:600;fill:var(--ds-color-text-default)">${v.toLocaleString('pt-BR', { minimumFractionDigits: 1 })}${acima ? ' ▲' : ''}</text>
+      <text x="${x + bw * 0.3}" y="${y0 + 18}" text-anchor="middle">${nome}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true"><line x1="${x0}" x2="${w - 10}" y1="${y0}" y2="${y0}" stroke="var(--ds-color-border-strong)"></line>
+    ${barras}<line x1="${x0}" x2="${w - 10}" y1="${Y(meta)}" y2="${Y(meta)}" stroke="var(--ds-color-text-default)" stroke-dasharray="6 4" stroke-width="2"></line>
+    <text x="${x0 - 4}" y="${Y(meta) + 4}" text-anchor="end" style="font-weight:600;fill:var(--ds-color-text-default)">meta ${meta.toLocaleString('pt-BR', { minimumFractionDigits: 1 })}</text></svg>`;
+}
+
 function recorte() {
   const meses = MESES_BI.slice(-f.periodo);
   return DADOS.filter((d) => meses.includes(d.mes) && (!f.orgao || d.orgao === f.orgao));
@@ -51,6 +82,12 @@ function render() {
   const [k, dir] = f.ordem; linhasT.sort((a, b) => (k === 'o' ? a.o.localeCompare(b.o) : a[k] - b[k]) * dir);
   const th = (key, rot, num = true) => `<th scope="col"${num ? ' class="num"' : ''} aria-sort="${k === key ? (dir > 0 ? 'ascending' : 'descending') : 'none'}"><button class="sort" data-ordem="${key}">${rot}</button></th>`;
 
+  // Canal no último mês (rosca) e tempo médio por órgão (colunas com meta).
+  const dUlt = soma(doMes(ult), (d) => d.digital), pUlt = soma(doMes(ult), (d) => d.presencial);
+  const tempos = ORGAOS.map((o) => [o, DADOS.find((d) => d.orgao === o && d.mes === ult).dias]).sort((a, b) => b[1] - a[1]);
+  const META_DIAS = 2.7;
+  const foraMeta = tempos.filter((t) => t[1] > META_DIAS).map((t) => t[0]);
+
   const kpi = (label, value, delta, sobe, bom, meta) => `<div class="lab-kpi"><span class="label">${label}</span><span class="value">${value}</span>
     <span class="delta--${bom ? 'up' : 'down'}">${sobe ? '▲' : '▼'} ${delta} <span class="muted">vs. ${ant}</span></span><span class="meta">${meta}</span></div>`;
   const dDias = media(ult, 'dias') - media(ant, 'dias'), dNota = media(ult, 'nota') - media(ant, 'nota');
@@ -85,6 +122,18 @@ function render() {
         sub: `Atendimentos em ${ult} por órgão. <span class="dica">Clique numa barra para filtrar o painel.</span>`, svg: barras,
         tabela: tabelaSimples(['Órgão', 'Atendimentos'], porOrgao, 'Atendimentos por órgão'),
         fonte: 'Painel de Atendimento (dados fictícios)', atualizado: '25/11/2026, 08:30' })}
+    </section>
+    <section class="lab-grid lab-grid--2">
+      ${conteiner({
+        titulo: `${pct(dUlt / (dUlt + pUlt))} dos atendimentos de ${ult} foram digitais`,
+        sub: `Atendimentos em ${ult} por canal, ${f.orgao || 'todos os órgãos'}`, svg: rosca([['Digital', dUlt], ['Presencial', pUlt]], [pct(dUlt / (dUlt + pUlt)), 'no digital']),
+        tabela: tabelaSimples(['Canal', 'Atendimentos'], [['Digital', dUlt], ['Presencial', pUlt]], 'Atendimentos por canal'),
+        fonte: 'Painel de Atendimento (dados fictícios)', atualizado: '25/11/2026, 08:30', metodo: 'o filtro de canal não se aplica a este gráfico' })}
+      ${conteiner({
+        titulo: foraMeta.length ? `${foraMeta.length > 1 ? foraMeta.slice(0, -1).join(', ') + ' e ' + foraMeta.at(-1) : foraMeta[0]} ${foraMeta.length > 1 ? 'passam' : 'passa'} da meta de ${META_DIAS.toLocaleString('pt-BR')} dias` : `Todos os órgãos dentro da meta de ${META_DIAS.toLocaleString('pt-BR')} dias`,
+        sub: `Tempo médio do pedido à conclusão em ${ult}, por órgão, em dias`, svg: colunas(tempos, META_DIAS, 'dias'),
+        tabela: tabelaSimples(['Órgão', 'Dias'], tempos.map(([o, v]) => [o, v.toLocaleString('pt-BR')]), 'Tempo médio por órgão'),
+        fonte: 'Painel de Atendimento (dados fictícios)', atualizado: '25/11/2026, 08:30', metodo: 'média ponderada pelo número de atendimentos' })}
     </section>
     <section class="lab-card" aria-labelledby="t-tab">
       <h2 id="t-tab" style="margin-bottom:8px">Comparativo por órgão em ${ult}</h2>
